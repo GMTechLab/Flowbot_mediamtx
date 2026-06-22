@@ -281,10 +281,6 @@ rtspServerCert: server.crt
 # Authentication methods. Available are "basic" and "digest".
 # "digest" doesn't provide any additional security and is available for compatibility only.
 rtspAuthMethods: [basic]
-# IPs or CIDRs of proxies placed before the RTSP server.
-# If the server receives a request from one of these entries, IP in logs
-# and authentication will be taken from the PROXY protocol header.
-rtspTrustedProxies: []
 
 ###############################################
 # Global settings -> RTMP server
@@ -305,10 +301,6 @@ rtmpsAddress: :1936
 rtmpServerKey: server.key
 # Path to the server certificate. This is needed only when encryption is "strict" or "optional".
 rtmpServerCert: server.crt
-# IPs or CIDRs of proxies placed before the RTMP server.
-# If the server receives a request from one of these entries, IP in logs
-# and authentication will be taken from the PROXY protocol header.
-rtmpTrustedProxies: []
 
 ###############################################
 # Global settings -> HLS server
@@ -443,12 +435,12 @@ srtAddress: :8890
 
 # Enable the MoQ (Media over QUIC) server, which allows to publish and read streams with the MoQ protocol.
 moq: true
-# Address of the TCP/HTTP2 listener.
+# Address of the TCP/HTTPS2 listener.
 # This hosts the web client.
-moqHTTP2Address: :8892
-# Address of the UDP/HTTP3 listener.
+moqHTTPS2Address: :8892
+# Address of the UDP/HTTPS3 listener.
 # This hosts the WebTransport endpoint.
-moqHTTP3Address: :8892
+moqHTTPS3Address: :8892
 # Path to the server key.
 # This can be generated with:
 # openssl genrsa -out server.key 2048
@@ -593,10 +585,6 @@ pathDefaults:
   # * npt: duration such as "300ms", "1.5m" or "2h45m", valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
   # * smpte: duration such as "300ms", "1.5m" or "2h45m", valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
   rtspRangeStart:
-  # Scale header value to send to the source, in order to play the stream at a different speed.
-  # Negative values play in reverse, values > 1 fast-forward,
-  # values 0 < x < 1 play slow motion.
-  rtspScale:
   # Range of ports used as source port in outgoing UDP packets.
   rtspUDPSourcePortRange: [10000, 65535]
 

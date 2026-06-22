@@ -1,0 +1,29 @@
+Terminal1:-chmod +x mediamtx
+./mediamtx
+
+Terminal2:-ffmpeg -f v4l2 -i /dev/video0 \
+  -c:v libx264 \
+  -preset ultrafast \
+  -tune zerolatency \
+  -x264-params "keyint=15:min-keyint=15" \
+  -b:v 800k \
+  -bufsize 400k \
+  -s 640x480 \
+  -r 15 \
+  -f rtsp \
+  -rtsp_transport tcp \
+  rtsp://localhost:8554/camera
+
+Test 2 — RTMP
+Stop the RTSP ffmpeg (Ctrl+C in Terminal 4), then:
+bash ffmpeg -f v4l2 -i /dev/video0 \
+  -c:v libx264 -preset ultrafast \
+  -tune zerolatency \
+  -f flv rtmp://localhost:1935/camera
+
+Test 3 — UDP
+Stop RTMP ffmpeg (Ctrl+C), then:
+bash ffmpeg -f v4l2 -i /dev/video0 \
+  -c:v libx264 -preset ultrafast \
+  -tune zerolatency \
+  -f rtp_mpegts udp://localhost:1234
